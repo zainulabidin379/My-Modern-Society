@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1096922309580",
+    "project_id": "my-modern-society-573f2",
+    "storage_bucket": "my-modern-society-573f2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096922309580:android:49c1864c7604cfd4bf3369",
+        "android_client_info": {
+          "package_name": "com.example.my_modern_society"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1096922309580-r7u3vb1pcj3g5ou7oumd2oq00osns138.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.my_modern_society",
+            "certificate_hash": "50e7892bdc688df248d0988b70a97788a05de1c5"
+          }
+        },
+        {
+          "client_id": "1096922309580-1lqrjmml60eo3qsbj7v68doechc5r1os.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrPuydPamDwgzoNqtOCwuWv_H2_-cQP7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1096922309580-1lqrjmml60eo3qsbj7v68doechc5r1os.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
