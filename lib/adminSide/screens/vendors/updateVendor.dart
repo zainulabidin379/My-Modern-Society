@@ -184,8 +184,9 @@ class _UpdateVendorState extends State<UpdateVendor> {
                             controller: addressController,
                             style: kBodyText.copyWith(color: kBlack),
                             cursorColor: kGreen,
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 3,
+                            textInputAction: TextInputAction.newline,
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.only(left: 14),
                               hintText: 'Address',

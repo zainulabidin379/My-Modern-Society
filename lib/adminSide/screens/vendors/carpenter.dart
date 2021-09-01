@@ -17,7 +17,7 @@ class Carpenter extends StatefulWidget {
 class _CarpenterState extends State<Carpenter> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('carpenters').get();
+    QuerySnapshot qn = await firestore.collection('carpenters').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -121,7 +121,7 @@ class _CarpenterState extends State<Carpenter> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -227,7 +227,7 @@ class _CarpenterState extends State<Carpenter> {
                     Get.to(()=> UpdateVendor(vendor: 'Carpenter', id: phone,));
                   },
                   child: Container(
-                    height: (size.height * 0.145)/2,
+                    height: (size.height * 0.155)/2,
                     width: size.width * 0.18,
                     child: Icon(FontAwesomeIcons.pen, color: kWhite),
                   ),
@@ -284,7 +284,7 @@ class _CarpenterState extends State<Carpenter> {
                     );
                   },
                   child: Container(
-                    height: (size.height * 0.145)/2,
+                    height: (size.height * 0.155)/2,
                     width: size.width * 0.18,
                     child: Icon(FontAwesomeIcons.trash, color: kWhite),
                   ),

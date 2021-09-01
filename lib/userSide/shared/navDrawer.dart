@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -72,45 +73,44 @@ class _NavDrawerState extends State<NavDrawer> {
                           ],
                         );
                       } else {
-                        return GestureDetector(
-                          onTap: () {
-                            snapshot.data['isApproved']
-                                ? Get.snackbar(
-                                    'Congratulations!',
-                                    'Your Account is approved.',
-                                    duration: Duration(seconds: 4),
-                                    backgroundColor: kBg,
-                                    colorText: kGreen,
-                                    borderRadius: 10,
-                                  )
-                                : Get.snackbar(
-                                    'Sorry!',
-                                    'Your Account is not approved yet.',
-                                    duration: Duration(seconds: 4),
-                                    backgroundColor: kBg,
-                                    colorText: Colors.red,
-                                    borderRadius: 10,
-                                  );
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 8.0),
-                                child: Container(
-                                    height: size.height * 0.09,
-                                    width: size.height * 0.09,
-                                    child: CircleAvatar(
-                                      backgroundColor: kWhite,
-                                      backgroundImage: (snapshot
-                                                  .data['gender'] ==
-                                              'male')
-                                          ? AssetImage('assets/images/male.png')
-                                          : AssetImage(
-                                              'assets/images/female.png'),
-                                    )),
-                              ),
-                              Row(
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Container(
+                                  height: size.height * 0.09,
+                                  width: size.height * 0.09,
+                                  child: CircleAvatar(
+                                    backgroundColor: kWhite,
+                                    backgroundImage: (snapshot.data['gender'] ==
+                                            'male')
+                                        ? AssetImage('assets/images/male.png')
+                                        : AssetImage(
+                                            'assets/images/female.png'),
+                                  )),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                snapshot.data['isApproved']
+                                    ? Get.snackbar(
+                                        'Congratulations!',
+                                        'Your Account is approved.',
+                                        duration: Duration(seconds: 4),
+                                        backgroundColor: kBg,
+                                        colorText: kGreen,
+                                        borderRadius: 10,
+                                      )
+                                    : Get.snackbar(
+                                        'Sorry!',
+                                        'Your Account is not approved yet.',
+                                        duration: Duration(seconds: 4),
+                                        backgroundColor: kBg,
+                                        colorText: Colors.red,
+                                        borderRadius: 10,
+                                      );
+                              },
+                              child: Row(
                                 children: [
                                   Text(
                                     snapshot.data['name'],
@@ -125,12 +125,77 @@ class _NavDrawerState extends State<NavDrawer> {
                                           color: Colors.redAccent, size: 20),
                                 ],
                               ),
-                              Text(
-                                snapshot.data['email'],
-                                style: kBodyText.copyWith(fontSize: 15),
-                              )
-                            ],
-                          ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                (FirebaseAuth
+                                        .instance.currentUser!.emailVerified)
+                                    ? Get.snackbar(
+                                        'Congratulations!',
+                                        'Your email is verified.',
+                                        duration: Duration(seconds: 4),
+                                        backgroundColor: kBg,
+                                        colorText: kGreen,
+                                        borderRadius: 10,
+                                      )
+                                    : showDialog(
+                                        context: context,
+                                        builder: (context) => new AlertDialog(
+                                              title: new Text(
+                                                  'Email Not Verified!'),
+                                              content: new Text(
+                                                  'Do you want to verify your email now?'),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(false),
+                                                  child: new Text('No',
+                                                      style: TextStyle(
+                                                          color: kBlack)),
+                                                ),
+                                                new TextButton(
+                                                  onPressed: () async {
+                                                    Navigator.pop(context);
+                                                    await FirebaseAuth
+                                                        .instance.currentUser!
+                                                        .sendEmailVerification();
+                                                    Get.snackbar(
+                                                      'Verification Email Sent!',
+                                                      'Check you email inbox or spam folder and follow the given link to verify your email',
+                                                      duration:
+                                                          Duration(seconds: 4),
+                                                      backgroundColor: kBg,
+                                                      colorText: kGreen,
+                                                      borderRadius: 10,
+                                                    );
+                                                  },
+                                                  child: new Text('Verify',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: kGreen)),
+                                                ),
+                                              ],
+                                            ));
+                              },
+                              child: Row(
+                                children: [
+                                  Text(
+                                    snapshot.data['email'],
+                                    style: kBodyText.copyWith(fontSize: 15),
+                                  ),
+                                  SizedBox(width: 10),
+                                  (FirebaseAuth
+                                          .instance.currentUser!.emailVerified)
+                                      ? Icon(FontAwesomeIcons.solidCheckCircle,
+                                          color: kWhite, size: 15)
+                                      : Icon(FontAwesomeIcons.solidTimesCircle,
+                                          color: Colors.redAccent, size: 15),
+                                ],
+                              ),
+                            ),
+                          ],
                         );
                       }
                     }),
@@ -158,7 +223,7 @@ class _NavDrawerState extends State<NavDrawer> {
               size: 25,
             ),
             title: Text('My Account', style: kBodyText.copyWith(color: kBlack)),
-            onTap: () => {Get.to(()=> MyAccount())},
+            onTap: () => {Get.to(() => MyAccount())},
           ),
           ListTile(
             leading: Icon(

@@ -16,7 +16,8 @@ class Gallery extends StatefulWidget {
 class _GalleryState extends State<Gallery> {
   Future getImages() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('gallery').get();
+    QuerySnapshot qn = await firestore.collection('gallery')
+        .orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }

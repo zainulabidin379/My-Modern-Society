@@ -18,7 +18,7 @@ class Mechanic extends StatefulWidget {
 class _MechanicState extends State<Mechanic> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('mechanics').get();
+    QuerySnapshot qn = await firestore.collection('mechanics').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -81,7 +81,7 @@ class _MechanicState extends State<Mechanic> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -185,7 +185,7 @@ class _MechanicState extends State<Mechanic> {
                 launch("tel://$phone");
               },
               child: Container(
-                height: size.height * 0.15,
+                height: size.height * 0.16,
                 width: size.width * 0.18,
                 child: Icon(FontAwesomeIcons.phoneAlt, color: kWhite),
               ),

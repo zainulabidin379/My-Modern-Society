@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../shared/shared.dart';
 
@@ -18,7 +17,7 @@ class Sweeper extends StatefulWidget {
 class _SweeperState extends State<Sweeper> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('sweepers').get();
+    QuerySnapshot qn = await firestore.collection('sweepers').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -81,7 +80,7 @@ class _SweeperState extends State<Sweeper> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -185,7 +184,7 @@ class _SweeperState extends State<Sweeper> {
                 launch("tel://$phone");
               },
               child: Container(
-                height: size.height * 0.15,
+                height: size.height * 0.16,
                 width: size.width * 0.18,
                 child: Icon(FontAwesomeIcons.phoneAlt, color: kWhite),
               ),

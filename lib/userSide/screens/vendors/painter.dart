@@ -18,7 +18,7 @@ class Painter extends StatefulWidget {
 class _PainterState extends State<Painter> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('painters').get();
+    QuerySnapshot qn = await firestore.collection('painters').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -81,7 +81,7 @@ class _PainterState extends State<Painter> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -185,7 +185,7 @@ class _PainterState extends State<Painter> {
                 launch("tel://$phone");
               },
               child: Container(
-                height: size.height * 0.15,
+                height: size.height * 0.16,
                 width: size.width * 0.18,
                 child: Icon(FontAwesomeIcons.phoneAlt, color: kWhite),
               ),

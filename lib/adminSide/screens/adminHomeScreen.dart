@@ -73,7 +73,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               ),
             ],
           ),
-        ) as FutureOr<bool>?)) ??
+        ))) ??
         false;
   }
 
@@ -159,7 +159,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               }),
                             },
                         'assets/icons/vendors.png',
-                        'Vendors'),
+                        'Service Providers'),
                     menuCard(
                         size,
                         () => {

@@ -18,7 +18,7 @@ class Sweeper extends StatefulWidget {
 class _SweeperState extends State<Sweeper> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('sweepers').get();
+    QuerySnapshot qn = await firestore.collection('sweepers').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -124,7 +124,7 @@ class _SweeperState extends State<Sweeper> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -230,7 +230,7 @@ class _SweeperState extends State<Sweeper> {
                     Get.to(()=> UpdateVendor(vendor: 'Sweeper', id: phone,));
                   },
                   child: Container(
-                    height: (size.height * 0.145)/2,
+                    height: (size.height * 0.155)/2,
                     width: size.width * 0.18,
                     child: Icon(FontAwesomeIcons.pen, color: kWhite),
                   ),
@@ -287,7 +287,7 @@ class _SweeperState extends State<Sweeper> {
                     );
                   },
                   child: Container(
-                    height: (size.height * 0.145)/2,
+                    height: (size.height * 0.155)/2,
                     width: size.width * 0.18,
                     child: Icon(FontAwesomeIcons.trash, color: kWhite),
                   ),

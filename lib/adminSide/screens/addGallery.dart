@@ -99,6 +99,7 @@ class _AddGalleryState extends State<AddGallery> {
       FirebaseFirestore.instance.collection("gallery").doc(fileName).set({
         "url": url,
         "fileName": fileName,
+        "timestamp": DateTime.now(),
       }).then((_) {
         setState(() {
           fileUploaded = true;

@@ -19,7 +19,7 @@ class _VendorsState extends State<Vendors> {
       //AppBar
       appBar: AppBar(
         elevation: 0,
-        title: Text('Vendors'),
+        title: Text('Service Providers'),
         automaticallyImplyLeading: false,
         centerTitle: true,
         backgroundColor: kGreen,

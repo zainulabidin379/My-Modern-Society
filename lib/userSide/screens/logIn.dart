@@ -244,6 +244,8 @@ class _LoginState extends State<Login> {
                                                 emailController.text,
                                                 passwordController.text);
 
+
+                                        //How Admin and homescreen is handled.
                                         if (result == null) {
                                           if (_auth.getCurrentUser() ==
                                               'SUj5uhm9jDX3EqRVW5uxDu5rWph1' || _auth.getCurrentUser() == '7Lgs69T0Ebcm2pTTpueetVCsT6h1') {

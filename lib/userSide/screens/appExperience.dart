@@ -18,24 +18,24 @@ class _RateExperienceState extends State<RateExperience> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: kBg,
-        //Appbar
-        appBar: AppBar(
-          elevation: 0,
-          title: Text('Rate Your Experience'),
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          backgroundColor: kGreen,
-          //Back Button
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(14),
-              child: Icon(Icons.arrow_back_ios),
-            ),
+      //Appbar
+      appBar: AppBar(
+        elevation: 0,
+        title: Text('Rate Your Experience'),
+        automaticallyImplyLeading: false,
+        centerTitle: true,
+        backgroundColor: kGreen,
+        //Back Button
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(14),
+            child: Icon(Icons.arrow_back_ios),
           ),
         ),
+      ),
       body: SingleChildScrollView(
           child: Column(
         children: [
@@ -56,31 +56,24 @@ class _RateExperienceState extends State<RateExperience> {
                   SizedBox(
                     height: 10,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          'Thank you for using',
+                  Flexible(
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Thank you for using',
                           style: kBodyText.copyWith(
                             color: kBlack,
                             fontSize: 20,
                           ),
-                          maxLines: 2,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 7,
-                      ),
-                      Text(
-                        'My Modern Society',
-                        style: kBodyText.copyWith(
-                            color: kGreen,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold),
-                        maxLines: 2,
-                      ),
-                    ],
+                          children: [
+                            TextSpan(
+                              text: 'My Modern Society',
+                              style: kBodyText.copyWith(
+                                  color: kGreen,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ]),
+                    ),
                   ),
                 ]),
           ),
@@ -123,14 +116,14 @@ class _RateExperienceState extends State<RateExperience> {
                     children: [
                       GestureDetector(
                         onTap: () async {
-                        var firestore = FirebaseFirestore.instance;
+                          var firestore = FirebaseFirestore.instance;
                           DocumentSnapshot qn = await firestore
-                            .collection('users')
-                            .doc(_auth.getCurrentUser())
-                            .get();
+                              .collection('users')
+                              .doc(_auth.getCurrentUser())
+                              .get();
                           await DatabaseService(uid: _auth.getCurrentUser())
-                            .sendExperienceData(qn['name'], qn['email'],
-                                'Bad');
+                              .sendExperienceData(
+                                  qn['name'], qn['email'], 'Bad');
                           Navigator.pop(context);
                           Get.snackbar(
                             'Thank You for your kind feedback',
@@ -178,12 +171,12 @@ class _RateExperienceState extends State<RateExperience> {
                           );
                           var firestore = FirebaseFirestore.instance;
                           DocumentSnapshot qn = await firestore
-                            .collection('users')
-                            .doc(_auth.getCurrentUser())
-                            .get();
+                              .collection('users')
+                              .doc(_auth.getCurrentUser())
+                              .get();
                           await DatabaseService(uid: _auth.getCurrentUser())
-                            .sendExperienceData(qn['name'], qn['email'],
-                                'Average');
+                              .sendExperienceData(
+                                  qn['name'], qn['email'], 'Average');
                         },
                         child: Column(
                           children: [
@@ -208,12 +201,12 @@ class _RateExperienceState extends State<RateExperience> {
                         onTap: () async {
                           var firestore = FirebaseFirestore.instance;
                           DocumentSnapshot qn = await firestore
-                            .collection('users')
-                            .doc(_auth.getCurrentUser())
-                            .get();
+                              .collection('users')
+                              .doc(_auth.getCurrentUser())
+                              .get();
                           await DatabaseService(uid: _auth.getCurrentUser())
-                            .sendExperienceData(qn['name'], qn['email'],
-                                'Good');
+                              .sendExperienceData(
+                                  qn['name'], qn['email'], 'Good');
                           Navigator.pop(context);
                           Get.snackbar(
                             'Thank You for your kind feedback',
@@ -254,12 +247,12 @@ class _RateExperienceState extends State<RateExperience> {
                         onTap: () async {
                           var firestore = FirebaseFirestore.instance;
                           DocumentSnapshot qn = await firestore
-                            .collection('users')
-                            .doc(_auth.getCurrentUser())
-                            .get();
+                              .collection('users')
+                              .doc(_auth.getCurrentUser())
+                              .get();
                           await DatabaseService(uid: _auth.getCurrentUser())
-                            .sendExperienceData(qn['name'], qn['email'],
-                                'Very Good');
+                              .sendExperienceData(
+                                  qn['name'], qn['email'], 'Very Good');
                           Navigator.pop(context);
                           Get.snackbar(
                             'Thank You for your kind feedback',
@@ -295,14 +288,14 @@ class _RateExperienceState extends State<RateExperience> {
                         onTap: () async {
                           var firestore = FirebaseFirestore.instance;
                           DocumentSnapshot qn = await firestore
-                            .collection('users')
-                            .doc(_auth.getCurrentUser())
-                            .get();
+                              .collection('users')
+                              .doc(_auth.getCurrentUser())
+                              .get();
                           await DatabaseService(uid: _auth.getCurrentUser())
-                            .sendExperienceData(qn['name'], qn['email'],
-                                'Awesome');
+                              .sendExperienceData(
+                                  qn['name'], qn['email'], 'Awesome');
 
-                                var id = Uuid().v4();
+                          var id = Uuid().v4();
                           FirebaseFirestore.instance
                               .collection('adminNotifications')
                               .doc(id)

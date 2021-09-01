@@ -17,7 +17,7 @@ class Electricians extends StatefulWidget {
 class _ElectriciansState extends State<Electricians> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('electricians').get();
+    QuerySnapshot qn = await firestore.collection('electricians').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -80,7 +80,7 @@ class _ElectriciansState extends State<Electricians> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -184,7 +184,7 @@ class _ElectriciansState extends State<Electricians> {
                 launch("tel://$phone");
               },
               child: Container(
-                height: size.height * 0.15,
+                height: size.height * 0.16,
                 width: size.width * 0.18,
                 child: Icon(FontAwesomeIcons.phoneAlt, color: kWhite),
               ),

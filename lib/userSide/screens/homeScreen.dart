@@ -201,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     }),
                                   },
                               'assets/icons/vendors.png',
-                              'Vendors'),
+                              'Service Providers'),
                           menuCard(
                               size,
                               () => {

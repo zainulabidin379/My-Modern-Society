@@ -106,6 +106,8 @@ class _AddNewRuleState extends State<AddNewRule> {
                         SizedBox(
                           height: 25,
                         ),
+
+                        //Add Rule Button
                         Center(
                           child: InkWell(
                             onTap: () async {

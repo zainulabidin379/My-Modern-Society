@@ -18,7 +18,7 @@ class Qari extends StatefulWidget {
 class _QariState extends State<Qari> {
   Future getVendor() async {
     var firestore = FirebaseFirestore.instance;
-    QuerySnapshot qn = await firestore.collection('qaris').get();
+    QuerySnapshot qn = await firestore.collection('qaris').orderBy('timestamp', descending: true).get();
 
     return qn.docs;
   }
@@ -81,7 +81,7 @@ class _QariState extends State<Qari> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: size.height * 0.15,
+            height: size.height * 0.16,
             width: size.width * 0.77,
             decoration: BoxDecoration(
                 color: kWhite,
@@ -185,7 +185,7 @@ class _QariState extends State<Qari> {
                 launch("tel://$phone");
               },
               child: Container(
-                height: size.height * 0.15,
+                height: size.height * 0.16,
                 width: size.width * 0.18,
                 child: Icon(FontAwesomeIcons.phoneAlt, color: kWhite),
               ),

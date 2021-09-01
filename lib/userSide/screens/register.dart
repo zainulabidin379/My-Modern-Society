@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'screens.dart';
 import '../shared/shared.dart';
@@ -343,7 +344,7 @@ class _RegisterState extends State<Register> {
                                       FieldValidator.maxLength(15,
                                           message:
                                               'Please enter a valid CNIC (12345-1234567-0)'),
-                                      FieldValidator.number(noSymbols: false),
+                                      FieldValidator.number(noSymbols: true),
                                     ]),
                                   ),
                                 ),
@@ -667,45 +668,57 @@ class _RegisterState extends State<Register> {
                                   child: InkWell(
                                     onTap: () async {
                                       if (_formKey.currentState!.validate()) {
-                                        if(isFemale == false && isMale == false){
+                                        if (isFemale == false &&
+                                            isMale == false) {
                                           Get.snackbar(
-                                              'Error',
-                                              'Please choose your gender!',
-                                              duration: Duration(seconds: 5),
-                                              backgroundColor: Colors.red,
-                                              colorText: kWhite,
-                                              borderRadius: 10,
-                                            );
-                                        } else{
-                                          setState(() {
-                                          loading = true;
-                                        });
-                                        dynamic result = await _auth
-                                            .registerWithEmailAndPassword(
-                                                nameController.text,
-                                                gender,
-                                                emailController.text,
-                                                cnicController.text,
-                                                houseController.text,
-                                                streetController.text,
-                                                sectorController.text,
-                                                passwordController.text);
-
-                                        if (result == null) {
-                                          Get.offAll(() => HomeScreen());
+                                            'Error',
+                                            'Please choose your gender!',
+                                            duration: Duration(seconds: 5),
+                                            backgroundColor: Colors.red,
+                                            colorText: kWhite,
+                                            borderRadius: 10,
+                                          );
                                         } else {
                                           setState(() {
-                                            loading = false;
+                                            loading = true;
+                                          });
+                                          dynamic result = await _auth
+                                              .registerWithEmailAndPassword(
+                                                  nameController.text,
+                                                  gender,
+                                                  emailController.text,
+                                                  cnicController.text,
+                                                  houseController.text,
+                                                  streetController.text,
+                                                  sectorController.text,
+                                                  passwordController.text);
+
+                                          if (result == null) {
+                                            Get.offAll(() => HomeScreen());
+                                            await FirebaseAuth
+                                                .instance.currentUser!
+                                                .sendEmailVerification();
                                             Get.snackbar(
-                                              'Error',
-                                              result,
-                                              duration: Duration(seconds: 3),
-                                              backgroundColor: Colors.red,
-                                              colorText: kWhite,
+                                              'Verification Email Sent!',
+                                              'Check you email inbox or spam folder and follow the given link to verify your email',
+                                              duration: Duration(seconds: 4),
+                                              backgroundColor: kBg,
+                                              colorText: kGreen,
                                               borderRadius: 10,
                                             );
-                                          });
-                                        }
+                                          } else {
+                                            setState(() {
+                                              loading = false;
+                                              Get.snackbar(
+                                                'Error',
+                                                result,
+                                                duration: Duration(seconds: 3),
+                                                backgroundColor: Colors.red,
+                                                colorText: kWhite,
+                                                borderRadius: 10,
+                                              );
+                                            });
+                                          }
                                         }
                                         return;
                                       }

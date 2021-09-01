@@ -235,6 +235,7 @@ class _AddNewVendorState extends State<AddNewVendor> {
                                     "name": nameController.text,
                                     "phone": phoneController.text,
                                     "address": addressController.text,
+                                    "timestamp": DateTime.now(),
                                   }).then((_) async {
                                     await FirebaseFirestore.instance
                                         .collection('users')
@@ -255,7 +256,7 @@ class _AddNewVendorState extends State<AddNewVendor> {
                                               "timestamp": DateTime.now(),
                                               "isRead": false,
                                               "notification":
-                                                  'A new ${widget.vendor} has been added, go and check it out in Vendors section.',
+                                                  'A new ${widget.vendor} has been added, go and check it out in Service Providers section.',
                                             })
                                             .then((_) {})
                                             .catchError((onError) {
